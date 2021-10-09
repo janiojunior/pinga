@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:jsf="http://xmlns.jcp.org/jsf">
+
+<!-- resources/css/style.css -->
+<h:head>
+	<h:outputStylesheet library="css" name="style.css" />
+	<h:outputStylesheet library="webjars" name="font-awesome/4.7.0/css/font-awesome.min-jsf.css" />
+</h:head>
+
+<h:body>
+	<h:form style="max-width: 500px; margin: auto">
+		<div align="center">
+			<h2>Acesso ao Sistema</h2>
+		</div>
+		<div class="input-container">
+			<i class="fa fa-user icon"></i>
+			<input jsf:id="email" type="email" class="input-field"
+                placeholder="Entre com seu email"
+                jsf:value ="#{loginController.usuario}"
+                title="Informe seu email para entrar no sistema."
+                autofocus="autofocus"
+                oninvalid="if (this.value != ''){this.setCustomValidity('Informe um email válido!')}" oninput="setCustomValidity('')"/>
+		</div>
+
+		<div class="input-container">
+			<i class="fa fa-key icon"></i>
+			<input jsf:id="senha" class="input-field" type="password"
+                placeholder="Senha" name="psw" 
+                autofocus="autofocus"
+                jsf:value ="#{loginController.senha}"/>
+                
+		</div>
+
+		<h:commandButton class="btn" value="Entrar" 
+			action="#{loginController.entrar}" />
+	</h:form>
+</h:body>
+
+</html>

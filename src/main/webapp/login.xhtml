@@ -1,0 +1,27 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+</h:head>
+
+<h:body>
+	<h:form>
+		<h1>Acesso ao Sistema</h1>
+		<h:panelGrid columns="2">
+			<h:outputLabel value="Usuário: "/>
+			<h:inputText value="#{loginController.usuario}" />
+			<h:outputLabel value="Senha: "/>
+			<h:inputSecret value="#{loginController.senha}" />
+			<h:commandButton 
+				action="#{loginController.entrar}"  
+				value="Entrar"/>
+			<h:commandButton  
+				action="#{loginController.limpar}"
+				value="Limpar"/>
+		</h:panelGrid>
+	</h:form>
+</h:body>
+
+</html>
