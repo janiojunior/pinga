@@ -104,7 +104,7 @@
 				<h:column>
 					<f:facet name="header">Data de Nascimento</f:facet>
 					<h:outputLabel value="#{obj.dataNascimento}" >
-						<f:convertDateTime type="localDate" pattern="MM/yyyy"/>
+						<f:convertDateTime type="localDate" pattern="dd/MM/yyyy"/>
 					</h:outputLabel>
 				</h:column>
 				
@@ -142,7 +142,7 @@
 						</h:commandButton>
 						<h:commandButton value="Excluir"
 							actionListener="#{usuarioController.excluir(obj)}">
-							<f:ajax execute="@this" render="@form:panelDataTable" />
+							<f:ajax execute="@this" render="@form:panelDataTable @form:messages" />
 						</h:commandButton>
 					</h:panelGrid>
 	
