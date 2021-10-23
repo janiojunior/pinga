@@ -134,6 +134,11 @@
 				</h:column>
 	
 				<h:column>
+					<f:facet name="header">Telefone</f:facet>
+					<h:outputLabel value="#{obj.telefone.codigoArea} - #{obj.telefone.numero}" />
+				</h:column>
+	
+				<h:column>
 					<f:facet name="header">Ação</f:facet>
 					<h:panelGrid columns="2">
 						<h:commandButton value="Editar"

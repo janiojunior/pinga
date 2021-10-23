@@ -20,5 +20,13 @@ public enum Sexo {
 	public String getLabel() {
 		return label;
 	}
+	
+	public static Sexo valueOf(int id) {
+		for (Sexo sexo : Sexo.values()) {
+			if (sexo.getId() == id)
+				return sexo;
+		}
+		return null;
+	}
 
 }

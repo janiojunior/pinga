@@ -21,5 +21,13 @@ public enum Perfil {
 	public String getLabel() {
 		return label;
 	}
+	
+	public static Perfil valueOf(int id) {
+		for (Perfil perfil : Perfil.values()) {
+			if (perfil.getId() == id)
+				return perfil;
+		}
+		return null;
+	}
 
 }
