@@ -16,6 +16,96 @@ import br.unitins.topicos12021.model.Usuario;
 
 public class UsuarioDAO implements DAO {
 	
+	
+	public Usuario verificarUsuario(String email, String senha) {
+		Connection conn = DAO.getConnection();
+		
+		if (conn == null) 
+			return null;
+			
+		PreparedStatement stat = null;
+		ResultSet rs = null;
+		Usuario usuario = null;
+		
+		try {
+			StringBuffer sql = new StringBuffer();
+			sql.append("SELECT ");
+			sql.append("  u.id, ");
+			sql.append("  u.nome, ");
+			sql.append("  u.cpf, ");
+			sql.append("  u.email, ");
+			sql.append("  u.data_nascimento, ");
+			sql.append("  u.senha, ");
+			sql.append("  u.perfil, ");
+			sql.append("  u.sexo, ");
+			sql.append("  t.id AS id_telefone, ");
+			sql.append("  t.codigo_area, ");
+			sql.append("  t.numero ");
+			sql.append("FROM ");
+			sql.append("  usuario u LEFT JOIN telefone t ON u.id = t.id ");
+			sql.append("WHERE ");
+			sql.append(" u.email = ? ");
+			sql.append(" AND u.senha = ? ");
+			sql.append("ORDER BY ");
+			sql.append("  u.nome ");
+			
+			stat = conn.prepareStatement(sql.toString());
+			stat.setString(1, email);
+			stat.setString(2, senha);
+			
+			rs = stat.executeQuery();
+			
+			if(rs.next()) {
+				usuario = new Usuario();
+				usuario.setId(rs.getInt("id"));
+				usuario.setNome(rs.getString("nome"));
+				usuario.setCpf(rs.getString("cpf"));
+				usuario.setEmail(rs.getString("email"));
+				
+				Date data = rs.getDate("data_nascimento");
+				if (data == null)
+					usuario.setDataNascimento(null);
+				else
+					usuario.setDataNascimento(data.toLocalDate());
+				
+				usuario.setSenha(rs.getString("senha"));
+				
+				usuario.setPerfil(Perfil.valueOf(rs.getInt("perfil")));
+				usuario.setSexo(Sexo.valueOf(rs.getInt("sexo")));
+				
+				usuario.setTelefone(new Telefone());
+				
+				// esse codigo eh necessario por conta de o id estar nulo
+				Object idTelefone = rs.getObject("id_telefone");
+						
+				usuario.getTelefone().setId(idTelefone == null ? null : (Integer) idTelefone);
+				usuario.getTelefone().setCodigoArea(rs.getString("codigo_area"));
+				usuario.getTelefone().setNumero(rs.getString("numero"));
+			}
+			
+		} catch (SQLException e) {
+			usuario = null;
+			e.printStackTrace();
+		} finally {
+			try {
+				stat.close();
+			} catch (SQLException e) {
+			}
+			try {
+				rs.close();
+			} catch (SQLException e) {
+			}
+			try {
+				conn.close();
+			} catch (SQLException e) {
+			}
+		}
+		
+		return usuario;
+			
+	}
+	
+	
 	@Override
 	public boolean incluir(Usuario usuario) {
 		Connection conn = DAO.getConnection();

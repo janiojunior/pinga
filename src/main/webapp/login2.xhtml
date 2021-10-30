@@ -12,6 +12,12 @@
 
 <h:body>
 	<h:form style="max-width: 500px; margin: auto">
+		<h:messages 
+			id="messages" 
+			errorStyle="color:red;margin:8px;"
+			warnStyle="color:yellow;margin:8px;"
+			infoStyle="color:green;margin:8px;"
+			/>
 		<div align="center">
 			<h2>Acesso ao Sistema</h2>
 		</div>
@@ -19,18 +25,28 @@
 			<i class="fa fa-user icon"></i>
 			<input jsf:id="email" type="email" class="input-field"
                 placeholder="Entre com seu email"
-                jsf:value ="#{loginController.usuario}"
+                jsf:value ="#{loginController.usuario.email}"
                 title="Informe seu email para entrar no sistema."
                 autofocus="autofocus"
                 oninvalid="if (this.value != ''){this.setCustomValidity('Informe um email válido!')}" oninput="setCustomValidity('')"/>
 		</div>
 
 		<div class="input-container">
+			<i class="fa fa-user icon"></i>
+			<input jsf:id="cpf"  class="input-field"
+				type="text"
+                placeholder="Entre com seu cpf"
+                jsf:value ="#{loginController.usuario.cpf}"
+                title="Informe seu cpf para entrar no sistema."
+                />
+		</div>
+		
+		<div class="input-container">
 			<i class="fa fa-key icon"></i>
 			<input jsf:id="senha" class="input-field" type="password"
                 placeholder="Senha" name="psw" 
                 autofocus="autofocus"
-                jsf:value ="#{loginController.senha}"/>
+                jsf:value ="#{loginController.usuario.senha}"/>
                 
 		</div>
 

@@ -3,41 +3,42 @@ package br.unitins.topicos12021.controller;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 
+import br.unitins.topicos12021.application.Util;
+import br.unitins.topicos12021.dao.UsuarioDAO;
+import br.unitins.topicos12021.model.Usuario;
+
 @Named
 @RequestScoped
 public class LoginController {
 	
-	private String usuario = "teste";
-	private String senha = "123";
+	private Usuario usuario;
 	
 	public String entrar() {
-		System.out.println("executou o metodo Entrar");
-		System.out.println(getUsuario());
-		System.out.println(getSenha());
-		
-		if (getUsuario().equals("janio@gmail.com") && getSenha().equals("123")) {
-//			return "hello.xhtml";
-			return "usuario.xhtml?faces-redirect=true";
-		}
+		UsuarioDAO dao = new UsuarioDAO();
+		Usuario usu = dao.verificarUsuario(
+				usuario.getEmail(), 
+				Util.hash(usuario));
+
+		if (usu != null)
+			return "hello.xhtml";
+		Util.addErrorMessage("Usuario, cpf ou senha inválido.");
 		return null;
 	}
 	
 	public void limpar() {
-		usuario = "";
-		senha = "";
+		usuario = null;
 	}
-	
-	public String getUsuario() {
+
+	public Usuario getUsuario() {
+		if (usuario == null)
+			usuario = new Usuario();
 		return usuario;
 	}
-	public void setUsuario(String usuario) {
+
+	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
-	public String getSenha() {
-		return senha;
-	}
-	public void setSenha(String senha) {
-		this.senha = senha;
-	}
+	
+
 	
 }

@@ -1,9 +1,6 @@
 package br.unitins.topicos12021.controller;
 
 import java.io.Serializable;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,6 +65,10 @@ public class UsuarioController implements Serializable {
 	public void incluir() {
 		if (validarCampos()) {
 			UsuarioDAO dao = new UsuarioDAO();
+			
+			// gerando o hash da senha
+			getUsuario().setSenha(Util.hash(getUsuario()));
+			
 			if (dao.incluir(getUsuario())) {
 				limpar();
 				Util.addInfoMessage("Inclusao realizada com sucesso.");
@@ -85,6 +86,10 @@ public class UsuarioController implements Serializable {
 	public void alterar() {
 		if (validarCampos()) {
 			UsuarioDAO dao = new UsuarioDAO();
+			
+			// gerando o hash da senha
+			getUsuario().setSenha(Util.hash(getUsuario()));
+			
 			if (dao.alterar(getUsuario())) {
 				limpar();
 				Util.addInfoMessage("Alteração realizada com sucesso.");
