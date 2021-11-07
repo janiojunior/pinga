@@ -14,7 +14,7 @@ import br.unitins.topicos12021.model.Sexo;
 import br.unitins.topicos12021.model.Telefone;
 import br.unitins.topicos12021.model.Usuario;
 
-public class UsuarioDAO implements DAO {
+public class UsuarioDAO implements DAO<Usuario> {
 	
 	
 	public Usuario verificarUsuario(String email, String senha) {

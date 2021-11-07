@@ -1,0 +1,108 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:jsf="http://xmlns.jcp.org/jsf">
+
+<h:head>
+	<h:outputStylesheet library="css" name="bootstrap.min.css" />
+	<h:outputStylesheet library="css" name="table.css"/>
+</h:head>
+
+<h:body>
+	<h:form >
+
+	<h:messages 
+		errorStyle="color:red" 
+		warnStyle="color:orange" 
+		infoStyle="color:green"
+		globalOnly="false"/>
+		
+	<!-- Container -->
+	<div class="container-fluid">
+		<div class="row justify-content-md-center">
+			<div class="col-md-6 col-md-auto login-box">		
+	 			<h:messages styleClass="alert alert-danger hmessages"  />
+				<div class="form-row">
+				 	<div class="form-group col-md-10">
+				 		<h1 class="text-center wdi-red">Consulta de Produtos</h1>
+				    </div>
+				    <div class="form-group col-md-2">
+					    	<h:commandButton value="+ Produto"
+						     	class="btn btn-success"
+								action="#{consultaProdutoController.novoProduto}" />
+				    </div>
+				</div>		
+				
+				<hr />
+					<div class="form-row">
+					 	<div class="form-group col-md-4">
+					      	<h:selectOneMenu styleClass="form-control" 
+								value="#{consultaProdutoController.tipoFiltro}">
+							   <f:selectItem itemValue="1" itemLabel="Nome" />
+							   <f:selectItem itemValue="2" itemLabel="Descrição" />                   
+							</h:selectOneMenu>
+					    </div>
+					    <div class="form-group col-md-6">
+					     	<input type="text" class="form-control" 
+					     		placeholder="Informe o filtro ..."
+								jsf:value="#{consultaProdutoController.filtro}" />
+					    </div>
+					    
+					    <div class="form-group col-md-2">
+					      <h:commandButton value="Pesquisar"
+					     		class="btn btn-primary"
+								actionListener="#{consultaProdutoController.pesquisar}" />
+					    </div>
+					    
+						
+					</div>
+					<h:dataTable 
+						id="dataTable"
+						width="100%"
+						value="#{consultaProdutoController.listaProduto}"
+						var="obj"
+						styleClass="table"
+						headerClass="table-header"
+						rowClasses="table-odd-row,table-even-row"
+						>
+						<h:column>
+							<f:facet name="header">Nome</f:facet>
+							<h:outputLabel value="#{obj.nome}" />
+						</h:column>		
+						<h:column>
+							<f:facet name="header">Descrição</f:facet>
+							<h:outputLabel value="#{obj.descricao}" />
+						</h:column>	
+						<h:column>
+							<f:facet name="header">Valor</f:facet>
+							<h:outputLabel value="#{obj.valor}" />
+						</h:column>	
+						<h:column>
+							<f:facet name="header">Estoque</f:facet>
+							<h:outputLabel value="#{obj.estoque}" />
+						</h:column>	
+						<h:column>
+							<f:facet name="header">Marca</f:facet>
+							<h:outputLabel value="#{obj.marca.nome}" />
+						</h:column>	
+						<h:column>
+							<f:facet name="header">Ação</f:facet>
+							<h:commandButton value="Editar"
+								class="btn btn-primary"
+								action="#{consultaProdutoController.editar(obj.id)}">
+								<f:ajax execute="@this" render="@form"/>
+							</h:commandButton>
+						</h:column>	
+					
+					</h:dataTable>
+			</div>
+		</div>
+	</div>
+
+	</h:form>
+
+</h:body>
+</html>

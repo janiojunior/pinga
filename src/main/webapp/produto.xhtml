@@ -1,34 +1,103 @@
 <!DOCTYPE HTML>
-<html xmlns="http://www.w3.org/1999/xhtml"
+<html 
+	lang="pt-br"
+	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
-
+	xmlns:f="http://java.sun.com/jsf/core"	
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:jsf="http://xmlns.jcp.org/jsf">
 <h:head>
-
+	<h:outputStylesheet library="css" name="bootstrap.min.css" />
 </h:head>
 
 <h:body>
+	<h:form>
+		<h:messages errorStyle="color:red" warnStyle="color:orange"
+			infoStyle="color:green" globalOnly="false" />
 
-	<form action="/action_page.php">
-		<h2>Register Form</h2>
-		<div class="input-container">
-			<i class="fa fa-user icon"></i> <input class="input-field"
-				type="text" placeholder="Username" name="usrnm">
+		<!-- Container -->
+		<div class="container-fluid">
+			<div class="row justify-content-md-center">
+				<div class="col-md-6 col-md-auto login-box">
+
+					<div class="form-row">
+						<div class="form-group col-md-2">
+								<h:commandLink value="voltar"
+									action="consultaproduto.xhtml?faces-redirect=true" />
+						</div>
+						<div class="form-group col-md-10">
+							<h1 class="text-center wdi-red">Cadastro de Produto</h1>
+						</div>
+					</div>
+
+					<hr />
+						<div class="form-group">
+							<h:outputLabel value="Nome" />
+							<h:inputText class="form-control"
+								value="#{produtoController.produto.nome}" />
+						</div>
+						<div class="form-group">
+							<h:outputLabel value="Descrição" />
+							<h:inputTextarea class="form-control"
+								value="#{produtoController.produto.descricao}" />
+						</div>
+						<div class="form-group">
+							<h:outputLabel value="Marca" />
+							<h:selectOneMenu styleClass="form-control"
+								value="#{produtoController.produto.marca}">
+								<f:selectItems value="#{produtoController.listaMarca}" 
+									var="obj"
+									itemValue="#{obj}"
+									itemLabel="#{obj.nome}" />
+							</h:selectOneMenu>
+						</div>
+						<div class="form-row">
+							<div class="form-group col-md-6">
+								<h:outputLabel value="Valor" />
+								<h:inputText class="form-control"
+									value="#{produtoController.produto.valor}" >
+								</h:inputText>
+							</div>
+							<div class="form-group col-md-6">
+								<h:outputLabel value="Estoque" />
+								<h:inputText class="form-control"
+									value="#{produtoController.produto.estoque}" >
+								</h:inputText>
+							</div>
+						</div>
+						<div class="row">
+							<div class="form-group col-md-3">
+								<h:commandButton value="Incluir" style="width:100px"
+									class="btn btn-outline-primary"
+									disabled="#{produtoController.produto.id != null}"
+									actionListener="#{produtoController.incluir}" />
+							</div>
+							<div class="form-group col-md-3">
+								<h:commandButton value="Alterar" style="width:100px"
+									class="btn btn-outline-primary"
+									disabled="#{produtoController.produto.id == null}"
+									actionListener="#{produtoController.alterar}" />
+							</div>
+							<div class="form-group col-md-3">
+								<h:commandButton value="Excluir" style="width:100px"
+									class="btn btn-outline-danger"
+									disabled="#{produtoController.produto.id == null}"
+									actionListener="#{produtoController.excluir}">
+									<f:ajax execute="@this" render="@form formDataTable" />
+								</h:commandButton>
+							</div>
+							<div class="form-group col-md-3">
+								<h:commandButton value="Limpar" style="width:100px"
+									class="btn btn-outline-primary"
+									actionListener="#{produtoController.limpar}">
+									<f:ajax execute="@this" render="@form" />
+								</h:commandButton>
+							</div>
+						</div>
+				</div>
+			</div>
 		</div>
-
-		<div class="input-container">
-			<i class="fa fa-envelope icon"></i> <input class="input-field"
-				type="text" placeholder="Email" name="email">
-		</div>
-
-		<div class="input-container">
-			<i class="fa fa-key icon"></i> <input class="input-field"
-				type="password" placeholder="Password" name="psw">
-		</div>
-
-		<button type="submit" class="btn">Register</button>
-	</form>
+	</h:form>
 
 </h:body>
 

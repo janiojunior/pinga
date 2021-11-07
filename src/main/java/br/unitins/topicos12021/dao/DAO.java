@@ -5,14 +5,12 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.List;
 
-import br.unitins.topicos12021.model.Usuario;
-
-public interface DAO {
+public interface DAO<T> {
 	
-	public boolean incluir(Usuario usuario);
-	public boolean alterar(Usuario usuario);
+	public boolean incluir(T obj);
+	public boolean alterar(T obj);
 	public boolean excluir(Integer id);
-	public List<Usuario> obterTodos();
+	public List<T> obterTodos();
 	
 	public static Connection getConnection() {
 		try {
