@@ -6,10 +6,9 @@
 	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
 	xmlns:jsf="http://xmlns.jcp.org/jsf">
 
-<h:head>
-</h:head>
+<ui:composition template="/template.xhtml">
+<ui:define name="conteudo">
 
-<h:body>
 	<h:form >
 		<h:messages 
 			id="messages" 
@@ -157,6 +156,7 @@
 		</h:panelGrid>
 	</h:form>
 
-</h:body>
+</ui:define>
+</ui:composition>
 
 </html>

@@ -1,8 +1,13 @@
 package br.unitins.topicos12021.controller;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 import javax.enterprise.context.RequestScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
+import br.unitins.topicos12021.application.Session;
 import br.unitins.topicos12021.application.Util;
 import br.unitins.topicos12021.dao.UsuarioDAO;
 import br.unitins.topicos12021.model.Usuario;
@@ -19,8 +24,13 @@ public class LoginController {
 				usuario.getEmail(), 
 				Util.hash(usuario));
 
-		if (usu != null)
-			return "hello.xhtml";
+		if (usu != null) {
+			// adicionando na sessao
+			Session.getInstance().set("usuarioLogado", usu);
+			
+			Util.redirect("template.xhtml");
+			
+		}
 		Util.addErrorMessage("Usuario, cpf ou senha inválido.");
 		return null;
 	}

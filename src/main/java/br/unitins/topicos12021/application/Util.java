@@ -1,5 +1,7 @@
 package br.unitins.topicos12021.application;
 
+import java.io.IOException;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.application.FacesMessage.Severity;
 import javax.faces.context.FacesContext;
@@ -14,6 +16,15 @@ public class Util {
 		System.out.println(hash("janio"));
 		System.out.println(hash("janio"));
 		System.out.println(hash("Janio").length());
+	}
+	
+	public static void redirect(String page) {
+		try {
+			FacesContext.getCurrentInstance().getExternalContext().redirect(page);
+		} catch (IOException e) {
+			System.out.println("Não foi possível realizar o redirecionamento.");
+			e.printStackTrace();
+		}
 	}
 	
 	public static String hash(Usuario usuario) {

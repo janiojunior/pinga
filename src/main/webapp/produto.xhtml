@@ -1,16 +1,13 @@
 <!DOCTYPE HTML>
-<html 
-	lang="pt-br"
-	xmlns="http://www.w3.org/1999/xhtml"
+<html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"	
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
 	xmlns:jsf="http://xmlns.jcp.org/jsf">
-<h:head>
-	<h:outputStylesheet library="css" name="bootstrap.min.css" />
-</h:head>
 
-<h:body>
+<ui:composition template="/template.xhtml">
+<ui:define name="conteudo">
 	<h:form>
 		<h:messages errorStyle="color:red" warnStyle="color:orange"
 			infoStyle="color:green" globalOnly="false" />
@@ -99,6 +96,7 @@
 		</div>
 	</h:form>
 
-</h:body>
+</ui:define>
+</ui:composition>
 
 </html>
