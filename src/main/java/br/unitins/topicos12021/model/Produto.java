@@ -1,5 +1,7 @@
 package br.unitins.topicos12021.model;
 
+import java.util.Objects;
+
 public class Produto {
 	private Integer id;
 	private String nome;
@@ -56,4 +58,21 @@ public class Produto {
 		this.marca = marca;
 	}
 
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Produto other = (Produto) obj;
+		return Objects.equals(id, other.id);
+	}
+	
 }
