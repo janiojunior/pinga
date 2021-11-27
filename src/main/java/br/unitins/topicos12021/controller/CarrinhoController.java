@@ -1,7 +1,7 @@
 package br.unitins.topicos12021.controller;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.faces.view.ViewScoped;
@@ -9,6 +9,7 @@ import javax.inject.Named;
 
 import br.unitins.topicos12021.application.Session;
 import br.unitins.topicos12021.application.Util;
+import br.unitins.topicos12021.dao.VendaDAO;
 import br.unitins.topicos12021.model.ItemVenda;
 import br.unitins.topicos12021.model.Usuario;
 import br.unitins.topicos12021.model.Venda;
@@ -47,15 +48,16 @@ public class CarrinhoController implements Serializable {
 		}
 		
 		Venda venda = new Venda();
-		venda.setData(LocalDateTime.now());
+		venda.setData(LocalDate.now());
 		venda.setUsuario(usuarioLogado);
 		venda.setListaItemVenda(carrinho);
 		
-		// salvando no banco de dados
-//		VendaDAO dao = new VendaDAO();
-//		dao.incluir(venda);
-		
-		Util.addInfoMessage("Venda realizada com sucesso.");
+	//	 salvando no banco de dados
+		VendaDAO dao = new VendaDAO();
+		if (dao.incluir(venda)) 
+			Util.addInfoMessage("Venda realizada com sucesso.");
+		else 
+			Util.addErrorMessage("Problemas ao realizar a venda.");
 		
 	}
 
