@@ -19,6 +19,14 @@ public class LoginController {
 	private Usuario usuario;
 	
 	public String entrar() {
+//		UsuarioDAO dao = new UsuarioDAO();
+//		Usuario usuarioBanco = dao.getUsuario(usuario.getEmail());
+//		usuario.setCpf(usuarioBanco.getCpf());
+//		if (usuarioBanco == null) {
+//			Util.addErrorMessage("Usuario nao existe.");
+//			return null;
+//		}
+		
 		UsuarioDAO dao = new UsuarioDAO();
 		Usuario usu = dao.verificarUsuario(
 				usuario.getEmail(), 
